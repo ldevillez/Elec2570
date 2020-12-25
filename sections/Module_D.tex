@@ -1,0 +1,213 @@
+\subsection{Hardware accelerator}
+\subsubsection{General-purpose processor}
+\begin{itemize}
+  \item Control-oriented applications
+  \item Optimized for
+    \subitem Conditional branching
+    \subitem Flexible data moves (block, words,GPIO,\dots)
+  \item Performance metric: MIPS
+  \item Instruction set architecture (\textbf{ISA}): RISC vs CISC
+  \item Instruction execution: in-order vs out-of-order
+  \item Memory architecture: Harvard vs Von Neumann
+  \item Gpp clock speed increase due to optimizations (pipeline)
+  \item Energy per instruction improved but not dramatically
+\end{itemize}
+
+
+\subsubsection{DSP cores}
+\begin{itemize}
+  \item For signal (1D) or image (2D)
+  \item Optimized for
+    \subitem arithmetic functions
+    \subitem regular memory accesses
+  \item Performance metric: GOPS
+\end{itemize}
+
+\lstinputlisting{code/DSP-pseudocode.s}
+
+\begin{table}[!ht]
+  \centering
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    Architecture&\#cycles& \#PMEM accesses& \#DMEM accesses\\
+    \hline \hline
+    Von Neumann & 8N& 6N& 2N\\
+    \hline
+    MAC instruction& 7N&5N&2N\\
+    \hline
+    Harvard/Thumb ISA& 5N&5N&2N\\
+    \hline
+    Hardware loop& 3N&5N&2N\\
+    \hline
+    C(i) \(\rightarrow\) PMEM& 2N& N& N\\
+    \hline
+    Dual mac/3bus& 2N/2& N/2& 2N/2\\
+    \hline
+    Delay reg& N&N/2&N/2\\
+    \hline
+  \end{tabular}
+  \caption{Effect of DSP features (FIR loop)}
+  \label{table:dsp}
+\end{table}
+
+\textbf{MAC}: Multiply accumulate, fusion of a multiplication and a addition (\(R_3 = R_3 + R_1 * R_2\))
+
+
+\textbf{Hardware looping:} improve the repetition of insructions sequentially on large data blocks (vectors/arrays) by getting rid of control instructions. It requires logic resources:
+\begin{itemize}
+  \item Loop counter
+  \item Instruction loop buffer
+  \item Hardware data address generation
+\end{itemize}
+
+\textbf{Triple data bus:} Fetch data for 2 mac at once
+
+\textbf{Delay Register:} add a delay block between the input of the two mac
+
+
+\bigbreak
+Key ideas:
+\begin{itemize}
+  \item Datapath / ALU with rich snigle-cycle arithmetic operation (MAC \dots)
+  \item Memory based architecture with single-cycle multiple data accesses
+  \item Specific addressing modes for loops
+  \item Reduced control overhead for loops (instruction decoding, jump instructions
+\end{itemize}
+
+\textbf{SIMD:} Single-Instruction Multiple-Data is a technique of performing the same operation on multiple pieces of data simultaneously (GPUs)
+
+\textbf{GPU:} Graphic processing units - massively parallel processor to maximize performance for graphirc workload charcterized by many fragments
+
+\textbf{Superscalar:} a CPU implementing a form parallelism called instruction-level parallelism (\textbf{ILP}). It execute more than one instruction during a clock cycle (instruction dispatch done at execution).
+
+\textbf{VLIW}: Very-long instruction word is a packing of single word of instruction (instruction dispatch done at compilation).
+
+\textbf{MPSoCs:} Multi-processors Socs - When higher fully parallel performance are required
+
+
+\subsubsection{Hardware accelerators}
+
+HW accelerators are highly specialized to the functions which allows reaching very high energy/performance efficiency. The drawback is the lack of flexibility: in a generic DPS we need numerous HW accelerators (avantage on dark Silicon issues).
+
+\textbf{Dark Silicon:} We cannot activate all transistors at once on a chip some need to stay off.
+\bigbreak
+Typical application
+\begin{itemize}
+  \item Generic: digital filters, min/max search
+  \item Signal analysis: FFT
+  \item Communications: convolutional encoding, error correcting codes
+  \item Crypto functions: encryption/decryption, hash function
+  \item Audio applications: compressions codecs
+  \item Video applications: compressions codecs, image enhancement
+  \item Sensor applications: Bloom filter, classifier with ML (SVM)
+\end{itemize}
+
+\subsubsection{MPSoc architectures}
+Instruction fetch and datpath control has high energy cost. Memory access have also a higher energy cost. Data locality is key to have energy-efficient computing.
+
+
+
+Single-core memory organization
+\begin{itemize}
+    \subitem Register file (2 read port + 1 write port)
+    \subitem Two bottlenecks
+    \subitem Separate L1 cache
+    \subitem Single-bus L2 main memory
+  \item The bypass bottleneck
+    \subitem Bypass circuit for pipeline execution stage to get rid of stall
+    \subitem Tag comparison on register index
+    \subitem PPA hungry in long pipeliens
+  \item The register file (\textbf{RF}) bottleneck
+    \subitem VLIW share a common register file bypass network
+    \subitem RF require 2N read port and N write port (not an SRAM)
+    \subitem In practice, 5 issues in parallel is the maximum
+\end{itemize}
+
+\bigbreak
+Interconnect fabrics
+\begin{itemize}
+  \item I/O-based transfers
+    \subitem Specific routing network connect the I/Os of several cores together
+    \subitem Low latency and power
+    \subitem Lack of flexibility
+    \subitem Difficult synchronization
+  \item FIFO-based transfers
+    \subitem Fifo as buffer between cores
+    \subitem Allow asynchronicity betweeen PEs with 2 independent clocks
+    \subitem Lack of flexibility
+  \item Memory-based transfer
+    \subitem Easier programming
+    \subtiem Requires cache coherency management
+    \subtiem Higher latency and power
+  \item DMA-based transfers
+    \subitem DMA allow offload the PEs of their block memory transfers
+    \subtiem PE sends a requets to the DMA and goes back to work/sleep
+    \subitem Several bus architecture can support DMA transfer (bus becomes a bottleneck when many PEs are interconnected).
+  \item Network on chipts (\textbf{NoCs})
+    \subtiem Ultimate solution for many-core GALS architecture
+    \subitem Each PE/SE is a node connectd by a router (including FIFO)
+    \subitem PE/SEs can have independent embedded \(V_{dd}\) and clock generator
+    \subitem Can re-use all the techniques from the off-chip communication networks (TDMA, CDMA\dots)
+
+
+
+
+\subsection{Anthropocene}
+
+\textbf{Absolute resource footprint:} KPI unit x Intensity
+
+\textbf{KPI:} Key performance indicator
+
+\begin{align}
+  CO_2e = Pop * \frac{A}{Pop} * \frac{E}{A} * \frac{CO_2e}{E}
+\end{align}
+
+\bigbreak
+Observations
+\begin{itemize}
+  \item The followup of efficiency-improvement laws did not lead carbon footprint reduction
+  \item Affluence increases mor than the efficiency
+\end{itemize}
+
+\bigbreak
+Hypothesis
+\begin{enumerate}
+  \item The impossibility of green growth
+    \subitem Increasing KPi is the way to generate economic growth
+    \subitem Decoupling between economic growth and energy footprint
+  \item Escalating NRE costs
+    \subitem All KPI are bounded by a physical limit
+    \subitem Getting closer to the limit requires increasing innovation investetments (NREs)
+    \subitem Return on investment requires increasing the affluence
+    \subitem Companies compete to attrack capitals by promising growth of the stock value (speculative capitalism instead of accumulative)
+  \item ICT innovation pitfalls
+    \subitem KPI innovation (e.g. 5G)
+    \subitem Buzzword-driven innovation (ML for energy-efficiency optimization).
+\end{enumerate}
+
+
+Consequences
+\begin{itemize}
+  \item Creation of artificial needs
+  \subitem High emission form onlive video
+  \item Obsolescence generation
+\end{itemize}
+
+
+\end{itemize}
+
+\subsection{Ecological transition in ICT}
+\begin{enumerate}
+  \item Focus innovation on human needs
+    \subitem Don't create needs
+    \subitem Needs human interaction with the rest of the world
+  \item Replace KPI drive by reduction in carbon / resource footprint
+  \item Limit rebound effects
+    \subitem How will this innovation be used
+    \subitem Can we prevent abusive/unlimited use 
+    \subitem Needs for multidisciplinarity
+\end{enumerate}
+
+
+
+

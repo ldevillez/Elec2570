@@ -14,19 +14,26 @@ A5	sections/HW.tex	/^Robust HDL coding.$/;"	u
 A6	sections/HW.tex	/^We need to clean signal from I\/O (ex: reset). and the clock must have a proper SDC declaration. For GPOUT, we should forward the clock (Hardware or software (ex: using Gpout[9] ))$/;"	u
 A7	sections/HW.tex	/^The tool is under-estimating the activity factor of the different net and of the memories. Golden rule: keep 10\\% of each phase (DCMI,encoding,SPI). Clock gating reduce the power but add the gate on the capture\/launch path so it can reduce  or increase the slack.$/;"	u
 AHB	sections/Module_A.tex	/^\\end{itemize}$/;"	u
+Anthropocene	sections/Module_D.tex	/^    \\subitem Can re-use all the techniques from the off-chip communication networks (TDMA, CDMA\\dots)$/;"	u
 Architectural design	sections/Module_A.tex	/^The cortex-M0 can generate byte, half-ward, and word transfers$/;"	u
 Business model map	sections/Module_A.tex	/^\\end{itemize}$/;"	u
 Clock design	sections/Module_B.tex	/^\\end{itemize}$/;"	u
 Code	sections/HW.tex	/^\\subsection{A1}$/;"	b
+DSP cores	sections/Module_D.tex	/^\\end{itemize}$/;"	b
 Design Flow	main.tex	/^\\tableofcontents$/;"	s
 Design constraints	sections/Module_B.tex	/^\\end{enumerate}$/;"	u
 Dynamic verification	sections/Module_A.tex	/^\\textbf{Verification:} act of reviewing, inspecting and testing a design ir order to establish that it meet the specifications (functional and performance).$/;"	b
+Ecological transition in ICT	sections/Module_D.tex	/^\\end{itemize}$/;"	u
 Encoding error for 64  128	sections/HW.tex	/^the iROM is a non volatile memory and iRAM is a volatile memory (for stack + heap + \\dots). We need ram, because flash memory (ROM) has a limited number of writing and RAM is also low power.$/;"	b
 Formal verification	sections/Module_A.tex	/^\\textbf{Metric-driven verification:} use coverage-directed automatic random stimuli generation to exercise all parts of the design. Universal Verification Methodology (UVM) is a standardized metric-driven methodoly for RTL digital design with a focus on IP re-use.$/;"	b
+General-purpose processor	sections/Module_D.tex	/^\\subsection{Hardware accelerator}$/;"	b
+Hardware accelerator	sections/Module_D.tex	/^\\subsection{Hardware accelerator}$/;"	u
+Hardware accelerators	sections/Module_D.tex	/^\\textbf{MPSoCs:} Multi-processors Socs - When higher fully parallel performance are required$/;"	b
 Homework	main.tex	/^\\input{sections\/Module_D}$/;"	s
 Interrupt	sections/Module_A.tex	/^\\textbf{Floating point hardware}: (optional)$/;"	b
 Logic paths	sections/Module_B.tex	/^\\end{itemize}$/;"	u
 MCU	sections/Module_A.tex	/^\\end{itemize}$/;"	u
+MPSoc architectures	sections/Module_D.tex	/^\\end{itemize}$/;"	b
 Memories	sections/Module_B.tex	/^\\textbf{Power gating:} Disable a circuit when not used (power shut-off). But challenges: states retention, output isolation, wake-up time, wake-up rush current.$/;"	u
 Memory	sections/HW.tex	/^\\end{itemize}$/;"	b
 Module A  From C code to embedded execution	main.tex	/^\\textbf{Pure-play foundry:} from Signoff to Testing$/;"	s

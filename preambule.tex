@@ -11,6 +11,8 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{multirow}
+\usepackage{listings}
+\usepackage{xcolor}
 %\usetikzlibrary{babel}
 \usepackage[top = 2cm, bottom = 2cm, left = 2cm, right = 2cm]{geometry}
 
@@ -19,11 +21,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%
 \tikzset{flip flop/port labels/.initial={\tiny}}
 \input{tikz/reg.tex}
-%\newcommand{\reg2}[1]{%
-%\begin{tikzpicture}
-%  \draw (0,0) rectangle (1,1.5);
-%  \draw (0.3,0) -- (0.5,0.2) -- (0.7,0);
-%  \draw (0.5,1) node{D Q};
-%  \coordinate (0,1) coordinate (D);
-%  \coordinate (1,1) coordinate(Q);
-%\end{tikzpicture}}
+
+
+\lstset{
+  morekeywords={LOAD,MULT,ADD,SUB,BNE},
+  keywordstyle=\color{blue},
+  frame=single,
+  basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,
+  title=\lstname,
+}
