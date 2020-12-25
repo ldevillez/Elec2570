@@ -1,0 +1,137 @@
+\subsection{PPA}
+The PPA is a good factor to evaluate a digital chip
+\begin{itemize}
+  \item Speed \textbf{P}erformance in GHz:
+    \subitem \(f_{clk} \rightarrow\) CPI (not enough)
+    \subitem MIPS (cpu) or GPOS/GFLOPS
+  \item \textbf{P}ower consupmiton in mW:
+    \subitem \(P \propto f_{_{clk}} \rightarrow\) Needs to be normalized
+      \subitem mW/MHz, GOPS/W, pJ/inst, \(\mu\)J/task
+    \item Fabrication costs \(\propto\) 1/ Silicon \textbf{A}rea
+\end{itemize}
+
+\subsection{Business model map}
+\begin{itemize}
+  \item IP vendors: produce hardware and software intellectual property
+  \item Semiconductor vendors: produce digital design
+  \item EDA and foundries: implement IC design on silicon
+  \item OEMs and ODMs: Original Equipment Manufacturer and Originad Design manufacturer
+  \item Software developers
+  \item Operators
+  \item Retailers
+  \item Consumer
+\end{itemize}
+
+\subsection{MCU}
+Microcontroller are often used in embedded applications. The embeds various functions (IO,I2C, memory, ADC,DAC, Timer, Power management Unit, CPU). Low cost (high production volume).
+\bigbreak
+Two main CPU: \textit{ARM Cortex-M} and \textit{RISC-V}. Cortex-M0 are predictable (in-order execution, built-in interrupt controller), portable (predetermined memory space)
+\bigbreak
+\textbf{Thumb instruction set:} 16 bits instructions (limit code size). Subset of ARM instruction. Only the branch is conditional.
+\bigbreak
+\subsubsection{Processor core}
+\textbf{Harvard architecture:} 2 bus - 1 for data and 1 for instruction.
+
+\textbf{Von Neumann architecture:} 1 bus for data and instruction.
+\bigbreak
+16x32-bit registers
+\begin{itemize}
+  \item R0 - R12: general use register
+  \item R13: Main stack pointer/Process stack pointer
+  \item R14: Link register
+  \item R15: Program counter
+\end{itemize}
+
+Only 16 registers to stay low poer and have compact instructions.
+
+\textbf{Fast 32-bit multiplier}: single cycle (in SW, 32 instructions) (optional)
+
+\textbf{Floating point hardware}: (optional)
+
+
+\subsubsection{Interrupt}
+\begin{itemize}
+  \item NVIC: Nested vector interrupt control
+  \item WIC: Wake-up interrupt controller
+  \item NMI: Non-maskable interrupt
+\end{itemize}
+
+
+
+\subsection{AHB}
+\textbf{AMBA:} Advanced Microcontroller Bus Architecture
+
+\textbf{AHB:} Advanced High-performance bus, high bandwidth (pipeline, burst transfers, single-cycle master handover)
+
+\textbf{APB:} Advanced Peripheral bus - low bandwith, low complexity
+
+\textbf{AHB-Lite:} Subset of AHB. High performance bus:
+\begin{itemize}
+  \item Two-cycle transfer: address phase, then data phase
+  \item Wide data bus configuration (32-bit to 102B-bit data)
+  \item Burst transfers and wait states
+  \item single-clock dege operation
+  \item MUX operation
+\end{itemize}
+
+
+\subsection{RAM and memory}
+The RAM contains:
+
+\textbf{Data:} static and global variables
+
+\textbf{Stack:} temporary variable and parameters of functions call
+
+\textbf{Heap:} dynamically allocated variables
+
+The stack and heap grow in opposite directions.
+
+The cortex-M0 can generate byte, half-ward, and word transfers
+
+\subsection{Architectural design}
+
+\textbf{High-level synthesis:} Synthesize RTL code from C/SystemC/Matlab. Improved poductivity but PPA still lagging far behind manuel coding.
+
+Need SoC verification: First-time success is paramount and verefication is key (sooner the error is detected, the quicker a fix is implemented).
+
+\textbf{Verification:} act of reviewing, inspecting and testing a design ir order to establish that it meet the specifications (functional and performance).
+
+\subsubsection{Dynamic verification}
+\textbf{Dynamic verification:} Simulate the design with a given set of stimuli to check thats its state and outputs are correct (performed at all design stages).
+
+The number of states grow too fast (\(\log^2\)) and worst with CPU (test all SW). A possibility is to emulate the design on a fpga (SW developement before SoC production) but:
+\begin{itemize}
+  \item Require time and expertise
+  \item is also subject to human errors
+  \item Dose not capture layout effects
+\end{itemize}
+
+A test bench is used to provide and collect data. Need also a clock and reset signal. (Testbench should be written by a different person than the designer). Waveform inspection or sequential generation of input stimuli is not scalable. Complex DSP need high-levl model to compare the outputs.
+
+
+\textbf{Assertions based verification:} a statement that a certain property must be true, which falgs an error if not. It is possible to check block internal state. Can be specified by designer of verificatino teams. Widely adopted by the industry when there is a lot of IP blocks.
+
+\bigbreak
+ABV can be used for measuring test coverage. The reach a coverage of 100\% we need manual testbnech improvement with new mode of operations, function, range of input stimuli. 
+
+
+To cost of verification increase with the miniaturisation.
+
+\textbf{Metric-driven verification:} use coverage-directed automatic random stimuli generation to exercise all parts of the design. Universal Verification Methodology (UVM) is a standardized metric-driven methodoly for RTL digital design with a focus on IP re-use.
+\subsubsection{Formal verification}
+\textbf{Formal verification:} Use of mathematical methods to prove that a design meets ets specification. It is defined by its
+\begin{itemize}
+  \item Mathematical framework
+  \item Verification technique
+\end{itemize}
+
+\textbf{Logic equivalence checking:} Prove the logic equivalence between golden RTL and varisous RTL during the whole design.
+\begin{itemize}
+  \item Performed by a dedicated tool (e.g. Cadence Conformal)
+  \item Works on both combinatorial and sequiential digital circuits
+  \item Complicated by low-power features
+\end{itemize}
+
+
+\subsubsection{Static verification}
+\textbf{Static verification: } Check that several constraints are met in the design.

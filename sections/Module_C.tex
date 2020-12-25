@@ -1,0 +1,195 @@
+
+
+\subsection{Physical implementation}
+\textbf{Step 1:} The floorplanning
+\begin{itemize}
+  \item the core size (dimension or the aspect ratio)
+  \item the core to boundary distance.
+  \item Core row utilisation
+    \subitem High utilization (lower area and possible shorter routing (lower delay - low C)
+    \subitem Low utilization (Routing less complicated, use space to do timing optimization, less heat/area)
+  \item Row Organization: orientation and spacing
+\end{itemize}
+
+\textbf{Step 2:} Placement of the hard macros
+
+\textbf{Step 3:} Placement of the well taps
+
+\textbf{Step 4:} Power rail (width and position \(\rightarrow\) care to IR drop)
+
+\textbf{Step 5:} Clock tree
+\begin{itemize}
+  \item short path are most prone to hold time violations
+  \item Hold time violation cannot be fixed with a reduction of clock frequency
+  \item Skew is temporal due to
+    \subitem Clock source
+    \subitem ambient and circuit noise
+    \subitem Supply/ground bouncne
+\end{itemize}
+The clock tree improves skew and transition but introduce a delay. It degrade
+\begin{itemize}
+  \item REG2OUT setup closure
+  \item IN2REG hold closure
+\end{itemize}
+
+\textbf{Step 6:} Routing
+\begin{enumerate}
+  \item Power nets
+  \item Clock nets
+  \item Signal nets (timing-driven)
+\end{enumerate}
+We use buffer and repeater to lower the capacitance to drive (lower \(\tau\)).
+
+Crosstalk and Signal Integrity (SI) \(\Rightarrow\) Lower the cap
+
+
+
+% TODO replace this
+Need decap cells to reduce load to drive 
+
+\subsection{Timing optimization}
+\begin{itemize}
+  \item Add/delete buffers
+  \item Resize cells
+  \item Restructure the netlist
+  \item Remap logic
+  \item Swap pins
+  \item Move instances
+\end{itemize}
+
+\subsection{Packaging}
+\begin{itemize}
+  \item Package parsitics
+  \item Wirebond inductance
+\end{itemize}
+ground/supply bounce at rising edge of the clock (flip-flop toggle) or whene output pad is changing (large C and large transistor). To prevent that
+\begin{itemize}
+  \item Parallel connection (reduce parasitic inductance), Half IO \(\rightarrow\) power pads
+  \item Ground plane
+\end{itemize}
+
+
+\subsection{Technology scaling}
+
+\subsubsection{5V world and happy scaling}
+\textbf{Moore's law:} The number of transistor per chip doubles every 1.5-2 years
+
+\textbf{Transistor sclaling:} Dividing \(T_{ox}\ L\ W\) by \(\alpha\)
+
+\textbf{Interconnect:} Connection between different metal layer %TODO replace it correctly and verify it
+
+\textbf{Interconnect scaling:} Dividing \(H_{met}\ H_{met} \ \) Pitch by \(\alpha\)
+
+\begin{table}[!ht]
+  \centering
+  \begin{tabular}{|l|c|c|}
+    \hline
+    &Constant&Constant\\
+    &Voltage&field\\
+    \hline
+    \hline
+    Dimensions: \(W,\ L,\ T_{ox}\)& \(1/\alpha\) & \(1/\alpha\)\\
+    \hline
+    Voltages: \(V_{dd},\ V_t\)&1 & \(1/\alpha\)\\
+    \hline
+    Current par device: \(I_{on}\)&\(\alpha\) & \(1/\alpha\)\\
+    \hline
+    Capacitance per device: \(C_{gg}\)& \(1/\alpha\) & \(1/\alpha\)\\
+    \hline
+    Area&\(1/\alpha^2\) & \(1/\alpha^2\)\\
+    \hline
+    Delay, \(1/f_{clk}\)& \(1/\alpha^2 \) & \(1/\alpha\)\\
+    \hline
+    Energy per operation& \(1/\alpha\) & \(1/\alpha^3\)\\
+    \hline
+    Power density&\(\alpha^3\) & 1\\
+    \hline
+  \end{tabular}
+  \caption{Transistors scaling}
+  \label{Transitors-scaling}
+\end{table}
+
+Limit to constant-voltage scaling: 5V and power
+\begin{itemize}
+  \item Area overhead and speed penalty
+  \item High power density
+  \item Total power: battery lifetime concern
+\end{itemize}
+\bigbreak
+
+\subsubsection{Interconnect limitation}
+Limit to constant field scaling: the resistance of interconnect per length unit increases. Reduce the interconnect delay:
+\begin{itemize}
+  \item New inteconnect (technology)
+    \subitem Change material (lower resistance)
+    \subitem Change dieletric (void)
+  \item New technique (Design)
+    \subitem Keep high metal level for global interconnect and not scaled
+    \subitem Extensive use of repeater (buffering)
+\end{itemize}
+
+\subsubsection{Leakage limitation}
+When the gate length becomes too small, the leakage power dominate. To limit the static power dissipation:
+\begin{itemize}
+  \item Multi \(V_t\) techniques (Design) but high complexity
+  \subitem Use low \(V_t\) on critical path
+  \subitem Use high \(V_t\) on non-critical path (leakage reduction)
+  \item Stop \(V_t\) scaling (Technology) but low speed
+    \subitem Limitation \(V_t\) and \(V_{dd}\) (Velocity saturationd and mobility reduction)
+    \subitem Strained-Silicon has Enhanced Mobility
+\end{itemize}
+
+\subsubsection{Gate leakage current}
+The gate leakage exponentially increases with \(T_{ox}\) scaling. Short-channel effects
+  \begin{itemize}
+  \item Degradation of the slope,
+  \item Shift of \(V_t\) (roll-off)
+  \item S-D leakage current
+  \end{itemize}
+
+  \(\Rightarrow\) Process diversifacation
+  \begin{itemize}
+    \item Low standby power (LSTP) CMOS
+    \item Low operation power (LOP) CMOS
+    \item High performance (HP) CMOS
+  \end{itemize}
+
+
+  \(\Rightarrow\) Increase \(C_{ox}\) to limit short-channel effects \(\Rightarrow\) Change oxide material
+
+
+\subsubsection{Variability and scalability}
+\textbf{Speed binning:} Regroup IC by Normalized leakage and frequency (due to variability - Random dopant fluctuations \textbf{RDF}).
+
+variability on \(V_t\) limit maximum speed and increase total leakage on large chip. It also reduce the SNM for SRAM (failures). To mitigate the variability:
+\begin{itemize}
+  \item New devices (technology)
+    \subitem Finfet: 3D CMOS - Pricer wafer but simpler process (No significant increase)
+    \subitem Full-depleted (FD) SOI: thin undoped channel (no RDF) in a buried oxide
+  \item New techniques (Design)
+\end{itemize}
+
+
+\subsubsection{Lithography}
+Since 180 nm generation, we use sub wavelength lithography
+\begin{itemize}
+  \item Rounding effects
+  \subitem Gate length variation induces high leakage
+  \subitem Higher capacitance
+  \subitem Short circuit
+\item Line edge roughness (\textbf{LER})
+  \subitem Varialbe line resistance/capacitance
+  \subitem Further \(V_t\) fluctuations
+\end{itemize}
+
+Solutions
+\begin{itemize}
+ \item Optical proximity correction (OPC) -> interference
+ \item Resolution enhancement techniques (\textbf{RETs})
+      \subitem From 45/40nm: highe numerical aperture and phase shift masks
+      \subitem From 32/28nm: Immersion lithography
+      \subitem From 22 nm: multiple patterning
+      \subitem From 5 nm: Extreme Ultra-Violet (\textbf{EUV}) with 13nm wavelength
+\end{itemize}
+\(\Rightarrow\) Wafer cost is exploding
+

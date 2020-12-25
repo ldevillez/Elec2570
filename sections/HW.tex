@@ -1,0 +1,64 @@
+
+\subsection{A1}
+
+\subsubsection{Code}
+
+\begin{itemize}
+  \item Code: pure code
+  \item RO: Read Only (eg. image input)
+  \item RW: Read and write (data)
+  \item ZI: zero init data (stack and heap)
+\end{itemize}
+
+\subsubsection{Memory}
+the iROM is a non volatile memory and iRAM is a volatile memory (for stack + heap + \dots). We need ram, because flash memory (ROM) has a limited number of writing and RAM is also low power.
+
+\subsubsection{Encoding error for 64*128}
+The heap is built in a ascending way and the stack is built in a descending way. If we go out of boundary we will have corruption
+\end{document}
+
+
+\subsubsection{A2}
+
+The compression rate is data dependent. 
+
+Improvement of cortex M4:
+\begin{itemize}
+  \item Thumb I and II
+  \item Floating point hardware
+  \item Harvard architecture
+\end{itemize}
+
+Avoid int64 (2 registers) and float (no hardware). Instead of dividing or multiplying try to use shift.
+
+
+\subsection{A2}
+
+We work we 32-bit register so we should avoi int64 (2 registers). We have no floating point hardware so avoid using float.
+
+
+\subsection{A3}
+
+The pcb delay module here is to model in the simulation the pcb
+
+%TODO complete
+
+\subsection{A4}
+Robust HDL coding.
+
+%TODO complete
+
+\subsection{A5}
+A path is between a startpoint and a endPoint. Both for the launch path and the capture path. Relevant ? \(\Rightarrow\) Synchronous or not.
+
+We need to clean signal from I/O (ex: reset). and the clock must have a proper SDC declaration. For GPOUT, we should forward the clock (Hardware or software (ex: using Gpout[9] ))
+
+
+\subsection{A6}
+
+The tool is under-estimating the activity factor of the different net and of the memories. Golden rule: keep 10\% of each phase (DCMI,encoding,SPI). Clock gating reduce the power but add the gate on the capture/launch path so it can reduce  or increase the slack.
+
+
+
+\subsection{A7}
+% TODO

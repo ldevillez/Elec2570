@@ -1,0 +1,51 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+5V world and happy scaling	sections/Module_C.tex	/^\\subsection{Technology scaling}$/;"	b
+A1	sections/HW.tex	/^$/;"	u
+A2	sections/HW.tex	/^Avoid int64 (2 registers) and float (no hardware). Instead of dividing or multiplying try to use shift.$/;"	u
+A2	sections/HW.tex	/^\\end{document}$/;"	b
+A3	sections/HW.tex	/^We work we 32-bit register so we should avoi int64 (2 registers). We have no floating point hardware so avoid using float.$/;"	u
+A4	sections/HW.tex	/^The pcb delay module here is to model in the simulation the pcb$/;"	u
+A5	sections/HW.tex	/^Robust HDL coding.$/;"	u
+A6	sections/HW.tex	/^We need to clean signal from I\/O (ex: reset). and the clock must have a proper SDC declaration. For GPOUT, we should forward the clock (Hardware or software (ex: using Gpout[9] ))$/;"	u
+A7	sections/HW.tex	/^The tool is under-estimating the activity factor of the different net and of the memories. Golden rule: keep 10\\% of each phase (DCMI,encoding,SPI). Clock gating reduce the power but add the gate on the capture\/launch path so it can reduce  or increase the slack.$/;"	u
+AHB	sections/Module_A.tex	/^\\end{itemize}$/;"	u
+Architectural design	sections/Module_A.tex	/^The cortex-M0 can generate byte, half-ward, and word transfers$/;"	u
+Business model map	sections/Module_A.tex	/^\\end{itemize}$/;"	u
+Clock design	sections/Module_B.tex	/^\\end{itemize}$/;"	u
+Code	sections/HW.tex	/^\\subsection{A1}$/;"	b
+Design Flow	main.tex	/^\\tableofcontents$/;"	s
+Design constraints	sections/Module_B.tex	/^\\end{enumerate}$/;"	u
+Dynamic verification	sections/Module_A.tex	/^\\textbf{Verification:} act of reviewing, inspecting and testing a design ir order to establish that it meet the specifications (functional and performance).$/;"	b
+Encoding error for 64  128	sections/HW.tex	/^the iROM is a non volatile memory and iRAM is a volatile memory (for stack + heap + \\dots). We need ram, because flash memory (ROM) has a limited number of writing and RAM is also low power.$/;"	b
+Formal verification	sections/Module_A.tex	/^\\textbf{Metric-driven verification:} use coverage-directed automatic random stimuli generation to exercise all parts of the design. Universal Verification Methodology (UVM) is a standardized metric-driven methodoly for RTL digital design with a focus on IP re-use.$/;"	b
+Homework	main.tex	/^\\input{sections\/Module_D}$/;"	s
+Interrupt	sections/Module_A.tex	/^\\textbf{Floating point hardware}: (optional)$/;"	b
+Logic paths	sections/Module_B.tex	/^\\end{itemize}$/;"	u
+MCU	sections/Module_A.tex	/^\\end{itemize}$/;"	u
+Memories	sections/Module_B.tex	/^\\textbf{Power gating:} Disable a circuit when not used (power shut-off). But challenges: states retention, output isolation, wake-up time, wake-up rush current.$/;"	u
+Memory	sections/HW.tex	/^\\end{itemize}$/;"	b
+Module A  From C code to embedded execution	main.tex	/^\\textbf{Pure-play foundry:} from Signoff to Testing$/;"	s
+Module B  From platfrom HDL to gate-level netlist	main.tex	/^\\input{sections\/Module_A}$/;"	s
+Module C  From gate-level netlist to physical layout	main.tex	/^\\input{sections\/Module_B}$/;"	s
+Module D  HW  SW co-design	main.tex	/^\\input{sections\/Module_C}$/;"	s
+PPA	sections/Module_A.tex	/^\\subsection{PPA}$/;"	u
+Packaging	sections/Module_C.tex	/^\\end{itemize}$/;"	u
+Physical implementation	sections/Module_C.tex	/^$/;"	u
+Power	sections/Module_B.tex	/^Boundary conditions on input\/output ports impact the timing and power of the design (slew rate and capacitance). To resolve I\/O setup constrains we can forward the clock (have the same delay between capture and lauch path).$/;"	u
+Principle	sections/Module_B.tex	/^$/;"	u
+Processor core	sections/Module_A.tex	/^\\bigbreak$/;"	b
+RAM and memory	sections/Module_A.tex	/^\\end{itemize}$/;"	u
+Reset design	sections/Module_B.tex	/^\\end{itemize}$/;"	u
+Robust HDL coding	sections/Module_B.tex	/^Strategies: Typical conditions (design evaluation) or worst-cas conditions (design sign-off).$/;"	u
+SRAM	sections/Module_B.tex	/^\\end{itemize}$/;"	b
+Standard-cell	sections/Module_B.tex	/^  \\end{itemize}$/;"	u
+Static verification	sections/Module_A.tex	/^\\end{itemize}$/;"	b
+Technology scaling	sections/Module_C.tex	/^\\end{itemize}$/;"	u
+Timing closure	sections/Module_B.tex	/^  \\textbf{Timing exceptions:} Everything whose timing constrain is not defined by \\(T_{cycle} > T_{C2Q} + T_{delay} + T_{setup}\\). We have Asynchronous I\/O or extremely relaxed timing constraint.$/;"	b
+Timing closure	sections/Module_B.tex	/^Performance trade-offs: we have a Pareto curve of optimum solutions between energy and Delay.$/;"	u
+Timing optimization	sections/Module_C.tex	/^Need decap cells to reduce load to drive $/;"	u

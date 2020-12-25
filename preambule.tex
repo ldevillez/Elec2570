@@ -1,0 +1,29 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc} 
+\usepackage[french]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{siunitx}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{multirow}
+%\usetikzlibrary{babel}
+\usepackage[top = 2cm, bottom = 2cm, left = 2cm, right = 2cm]{geometry}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.4mm}} % Defines a new command for the horizontal lines, change thickness here
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{flip flop/port labels/.initial={\tiny}}
+\input{tikz/reg.tex}
+%\newcommand{\reg2}[1]{%
+%\begin{tikzpicture}
+%  \draw (0,0) rectangle (1,1.5);
+%  \draw (0.3,0) -- (0.5,0.2) -- (0.7,0);
+%  \draw (0.5,1) node{D Q};
+%  \coordinate (0,1) coordinate (D);
+%  \coordinate (1,1) coordinate(Q);
+%\end{tikzpicture}}
