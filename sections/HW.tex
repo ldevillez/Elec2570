@@ -1,24 +1,22 @@
-
 \subsection{A1}
 
-\subsubsection{Code}
-
+We can find those name at output of the compiler:
 \begin{itemize}
   \item Code: pure code
   \item RO: Read Only (eg. image input)
   \item RW: Read and write (data)
   \item ZI: zero init data (stack and heap)
 \end{itemize}
+\bigbreak
+The iROM is a non volatile memory and iRAM is a volatile memory (for stack + heap + \dots). We need ram, because flash memory (ROM) has a limited number of writing and RAM is also low power.
 
-\subsubsection{Memory}
-the iROM is a non volatile memory and iRAM is a volatile memory (for stack + heap + \dots). We need ram, because flash memory (ROM) has a limited number of writing and RAM is also low power.
+The heap is built in a ascending way and the stack is built in a descending way. If we go out of boundary we will have corruption (for example with the 64*128 image)
 
-\subsubsection{Encoding error for 64*128}
-The heap is built in a ascending way and the stack is built in a descending way. If we go out of boundary we will have corruption
-\end{document}
+\bigbreak
+The main is not the first thing executed in a program. We need initialization whchi will perpare the system to run the main. It can be observed after a reset
 
 
-\subsubsection{A2}
+\subsection{A2}
 
 The compression rate is data dependent. 
 
@@ -29,36 +27,153 @@ Improvement of cortex M4:
   \item Harvard architecture
 \end{itemize}
 
-Avoid int64 (2 registers) and float (no hardware). Instead of dividing or multiplying try to use shift.
-
-
-\subsection{A2}
-
-We work we 32-bit register so we should avoi int64 (2 registers). We have no floating point hardware so avoid using float.
+Avoid int64 (2 registers) and float (no hardware). Instead of dividing or multiplying try to use shift. Also try to simplify mathematical expressions.
 
 
 \subsection{A3}
+There is 4 phase of simulations
+\begin{itemize}
+  \item JTAG: Programmation of the SoC
+  \item DCMI: Fetch of the data from the sensor
+  \item Compression: using the JPEG-xs algorithm
+  \item SPI: sending the compressed image
+\end{itemize}
 
-The pcb delay module here is to model in the simulation the pcb
+The \texttt{pcb\_module}  module here is to model in the simulation the pcb (physical connection - we have some capacitance ~\(pF\) to charge ~\(ns\)).
 
-%TODO complete
+The \texttt{ahb\_slave\_mux} selects the slave to be accessed by the master nad multiplexes the \textit{HRDATA} signals of the different slaves. In the project it also select the current master of the AHB bus (Cortex-M0/JTAG) based on TMS signal.
+
 
 \subsection{A4}
-Robust HDL coding.
+See \textsc{Section} \ref{Robust-HDL-coding}  about Robust HDL coding.
 
-%TODO complete
 
 \subsection{A5}
 A path is between a startpoint and a endPoint. Both for the launch path and the capture path. Relevant ? \(\Rightarrow\) Synchronous or not.
 
-We need to clean signal from I/O (ex: reset). and the clock must have a proper SDC declaration. For GPOUT, we should forward the clock (Hardware or software (ex: using Gpout[9] ))
+We need to clean signal from I/O (e.g. reset) so ween the latch the signal. The clock must have a proper SDC declaration (to allow metastability) but it's also true for the I/O signals (e.g. reset). For GPOUT, we should forward the clock (Hardware or software (ex: using Gpout[9] ))
 
 
 \subsection{A6}
 
-The tool is under-estimating the activity factor of the different net and of the memories. Golden rule: keep 10\% of each phase (DCMI,encoding,SPI). Clock gating reduce the power but add the gate on the capture/launch path so it can reduce  or increase the slack.
+The tool is under-estimating the activity factor (internal cell power) of the different net and of the memories. Golden rule: keep 10\% of each phase (DCMI,encoding,SPI). 
 
-
+Clock gating reduce the power but add the gate on the capture/launch path so it can reduce  or increase the slack.
 
 \subsection{A7}
+We have 3 choice to reduce memory power usage
+\begin{itemize}
+  \item Use smaller memory (we have oversized memory)
+  \item Use small memory to build a bigger one and disabled those memory when we are not using it (memory banking)
+  \item Create a low power cache to reduce the number of access to PMEM
+\end{itemize}
+
+\subsection{A8}
+
+\begin{align}
+  \Delta t &\simeq \cfrac{V_{dd} * C_l}{\frac{1}{2}*\mu*C_{ox} * \frac{W}{L}\left(V_{dd} - V_{th}\right)^2}
+ P_{SW} &\simeq C_L * V_{dd}^2 * f_{CLK} * \alpha_F * N_{nodes}\\
+ P_{leak}&\simeq V_{dd} * \frac{W}{L} * \mu * C_{DEP} * U_{th}^2 * 10^{\frac{-V_{th}}{S}}
+\end{align}
+
+The process will influence
+\begin{itemize}
+  \item \(C_l\)
+  \item \(C_{ox}\)
+  \item \(W\)
+  \item \(L\)
+  \item \(V_{th}\)
+\end{itemize}
+
+The temperature will influence
+\begin{itemize}
+  \item \(\mu\)
+  \item \(V_{th}\)
+\end{itemize}
+
+
+\bigbreak
+\(T_{delay}\), \(T_{setup}\) and \(T_{hold}\) are affected by PVT corner.
+
+\bigbreak
+To reach the timing closure
+\begin{itemize}
+  \item Decrease row utilization
+  \item Decrease the frequency
+  \item Define false paths
+  \item Run multiple optimization
+  \item Overconstraint the logic synthesis
+\end{itemize}
+
+
+\subsection{A9}
+
+\textbf{Latency:} Delay between the source and the sink.
+
+\textbf{Skew:} Difference of delay between two sink.
+
+\textbf{Clock uncertainty:} Model the skew compared to an ideal clock. The tool will take this data into account when doing the optimization.
+
+During the the \textit{place} stage, we have a better estimation of the capacitance (physical distance between cells is known) and the power estimation will increase.
+\subsection{A10}
+Starting point
+\begin{itemize}
+  \item Throughput limited by the power budget
+  \item Mainly dynamic power consumption
+\end{itemize}
+\bigbreak
+Possible choice:
+\begin{itemize}
+  \item Lower \(V_{dd}\)
+    \subitem Lower \(P_{dyn}\)
+    \subitem Longer delay
+    \subitem (Higher static power)
+  \item Lower \(V_t\)
+    \subitem Shorter delay
+    \subitem (Higher static power)
+\end{itemize}
+
+\subsection{A11}
+Execution profile
+\begin{itemize}
+  \item Bit packing: 30\%
+  \item Image pre-processing and DWT: 36\%
+  \item Data packing: 16\%
+\end{itemize}
+
+Slave HW accelerator
+\begin{itemize}
+  \item data is in the memory
+  \item Cortex-M0 must read/write it to the accelerato buffers
+  \item SW loop for read/write
+  \item +33.8\% Throughput
+  \item +13.3\% Power
+\end{itemize}
+
+
+Slave and Master HW accelerator
+\begin{itemize}
+  \item Data is in the memory
+  \item HW accelerator can read/write directly the memory
+  \item +46.8\% Throughput
+  \item +0.5\% Power
+\end{itemize}
 % TODO
+
+
+\bigbreak
+
+HW accelerator with DCMI
+\begin{itemize}
+  \item Data is already in the peripheral
+  \item No accesses overhead
+  \item Data needs to be stored
+  \item +48.8\% Throughput
+  \item +0.8\% Power
+  \item +8.6\% Area (Combinational logic +17\%)
+\end{itemize}
+
+
+\subsection{A12}
+
+%TODO: cry

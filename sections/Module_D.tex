@@ -109,7 +109,7 @@ Instruction fetch and datpath control has high energy cost. Memory access have a
 
 Single-core memory organization
 \begin{itemize}
-    \subitem Register file (2 read port + 1 write port)
+  \item Register file (2 read port + 1 write port)
     \subitem Two bottlenecks
     \subitem Separate L1 cache
     \subitem Single-bus L2 main memory
@@ -137,18 +137,18 @@ Interconnect fabrics
     \subitem Lack of flexibility
   \item Memory-based transfer
     \subitem Easier programming
-    \subtiem Requires cache coherency management
-    \subtiem Higher latency and power
+    \subitem Requires cache coherency management
+    \subitem Higher latency and power
   \item DMA-based transfers
     \subitem DMA allow offload the PEs of their block memory transfers
-    \subtiem PE sends a requets to the DMA and goes back to work/sleep
+    \subitem PE sends a requets to the DMA and goes back to work/sleep
     \subitem Several bus architecture can support DMA transfer (bus becomes a bottleneck when many PEs are interconnected).
   \item Network on chipts (\textbf{NoCs})
-    \subtiem Ultimate solution for many-core GALS architecture
+    \subitem Ultimate solution for many-core GALS architecture
     \subitem Each PE/SE is a node connectd by a router (including FIFO)
     \subitem PE/SEs can have independent embedded \(V_{dd}\) and clock generator
     \subitem Can re-use all the techniques from the off-chip communication networks (TDMA, CDMA\dots)
-
+\end{itemize}
 
 
 
@@ -194,7 +194,6 @@ Consequences
 \end{itemize}
 
 
-\end{itemize}
 
 \subsection{Ecological transition in ICT}
 \begin{enumerate}

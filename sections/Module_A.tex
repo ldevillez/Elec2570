@@ -3,24 +3,43 @@ The PPA is a good factor to evaluate a digital chip
 \begin{itemize}
   \item Speed \textbf{P}erformance in GHz:
     \subitem \(f_{clk} \rightarrow\) CPI (not enough)
-    \subitem MIPS (cpu) or GPOS/GFLOPS
+    \subitem MIPS (cpu) or GOPS/GFLOPS
   \item \textbf{P}ower consupmiton in mW:
     \subitem \(P \propto f_{_{clk}} \rightarrow\) Needs to be normalized
       \subitem mW/MHz, GOPS/W, pJ/inst, \(\mu\)J/task
     \item Fabrication costs \(\propto\) 1/ Silicon \textbf{A}rea
 \end{itemize}
 
+\textbf{CPI:} Clock per instruction.
+
+\textbf{GOPS:} Giga operation per second.
+
+\textbf{GFLOPS:} Giga floating operation per second.
+
+
+
 \subsection{Business model map}
 \begin{itemize}
   \item IP vendors: produce hardware and software intellectual property
   \item Semiconductor vendors: produce digital design
   \item EDA and foundries: implement IC design on silicon
-  \item OEMs and ODMs: Original Equipment Manufacturer and Originad Design manufacturer
+  \item OEMs and ODMs
   \item Software developers
   \item Operators
   \item Retailers
   \item Consumer
 \end{itemize}
+\bigbreak
+\textbf{IP:} Intellectual property.
+
+\textbf{EDA:} Electronic design automation
+
+\textbf{OEMs:} Original equipment manufacturer
+
+\textbf{ODMs:} Original Design manufacturer
+
+
+% TODO add relations ?
 
 \subsection{MCU}
 Microcontroller are often used in embedded applications. The embeds various functions (IO,I2C, memory, ADC,DAC, Timer, Power management Unit, CPU). Low cost (high production volume).
@@ -43,25 +62,25 @@ Two main CPU: \textit{ARM Cortex-M} and \textit{RISC-V}. Cortex-M0 are predictab
 \end{itemize}
 
 Only 16 registers to stay low poer and have compact instructions.
-
+\bigbreak
 \textbf{Fast 32-bit multiplier}: single cycle (in SW, 32 instructions) (optional)
 
 \textbf{Floating point hardware}: (optional)
 
 
 \subsubsection{Interrupt}
-\begin{itemize}
-  \item NVIC: Nested vector interrupt control
-  \item WIC: Wake-up interrupt controller
-  \item NMI: Non-maskable interrupt
-\end{itemize}
+\textbf{NVIC:} Nested vector interrupt control
+
+\textbf{WIC:} Wake-up interrupt controller
+
+\textbf{NMI:} Non-maskable interrupt
 
 
 
 \subsection{AHB}
 \textbf{AMBA:} Advanced Microcontroller Bus Architecture
 
-\textbf{AHB:} Advanced High-performance bus, high bandwidth (pipeline, burst transfers, single-cycle master handover)
+\textbf{AHB:} Advanced High-performance Bus, high bandwidth (pipeline, burst transfers, single-cycle master handover)
 
 \textbf{APB:} Advanced Peripheral bus - low bandwith, low complexity
 
@@ -90,7 +109,10 @@ The cortex-M0 can generate byte, half-ward, and word transfers
 
 \subsection{Architectural design}
 
-\textbf{High-level synthesis:} Synthesize RTL code from C/SystemC/Matlab. Improved poductivity but PPA still lagging far behind manuel coding.
+\textbf{RTL:} Register transfer level
+
+\textbf{High-level synthesis:} Synthesize RTL code from C/SystemC/Matlab. Improved productivity but PPA still lagging far behind manuel coding.
+\bigbreak
 
 Need SoC verification: First-time success is paramount and verefication is key (sooner the error is detected, the quicker a fix is implemented).
 
@@ -106,20 +128,20 @@ The number of states grow too fast (\(\log^2\)) and worst with CPU (test all SW)
   \item Dose not capture layout effects
 \end{itemize}
 
-A test bench is used to provide and collect data. Need also a clock and reset signal. (Testbench should be written by a different person than the designer). Waveform inspection or sequential generation of input stimuli is not scalable. Complex DSP need high-levl model to compare the outputs.
+A test bench is used to provide and collect data. Need also a clock and reset signal. (Testbench should be written by a different person than the designer). Waveform inspection or sequential generation of input stimuli is not scalable. Complex DSP need high-level model to compare the outputs.
 
 
 \textbf{Assertions based verification:} a statement that a certain property must be true, which falgs an error if not. It is possible to check block internal state. Can be specified by designer of verificatino teams. Widely adopted by the industry when there is a lot of IP blocks.
 
 \bigbreak
-ABV can be used for measuring test coverage. The reach a coverage of 100\% we need manual testbnech improvement with new mode of operations, function, range of input stimuli. 
+ABV can be used for measuring test coverage. The reach a coverage of 100\% we need manual testbench improvement with new mode of operations, function, range of input stimuli. 
 
 
 To cost of verification increase with the miniaturisation.
 
 \textbf{Metric-driven verification:} use coverage-directed automatic random stimuli generation to exercise all parts of the design. Universal Verification Methodology (UVM) is a standardized metric-driven methodoly for RTL digital design with a focus on IP re-use.
 \subsubsection{Formal verification}
-\textbf{Formal verification:} Use of mathematical methods to prove that a design meets ets specification. It is defined by its
+\textbf{Formal verification:} Use of mathematical methods to prove that a design meets its specification. It is defined by
 \begin{itemize}
   \item Mathematical framework
   \item Verification technique
@@ -128,7 +150,7 @@ To cost of verification increase with the miniaturisation.
 \textbf{Logic equivalence checking:} Prove the logic equivalence between golden RTL and varisous RTL during the whole design.
 \begin{itemize}
   \item Performed by a dedicated tool (e.g. Cadence Conformal)
-  \item Works on both combinatorial and sequiential digital circuits
+  \item Works on both combinatorial and sequential digital circuits
   \item Complicated by low-power features
 \end{itemize}
 
