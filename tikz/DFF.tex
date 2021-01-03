@@ -1,0 +1,201 @@
+\makeatletter
+%
+% better to create a family, but as an example...
+\tikzset{flip flop/port labels/.initial={\tiny}}
+%
+% number of ports
+\tikzset{ports/.initial=4}
+%
+% we need a counter
+\newcount\tmp@a
+
+\pgfdeclareshape{dff}{
+
+    % you have to save the relevant parameters as \savedmacro
+    \savedmacro\numports{
+        \edef\numports{\pgfkeysvalueof{/tikz/ports}}%
+    }
+    % and \saveddimen
+    \saveddimen\pinsdelta{
+        % you can't use savedmacros nor savedanchors here (bummer!)
+        \edef\numports{\pgfkeysvalueof{/tikz/ports}}%
+        \pgfmathsetlength\pgf@x{0.22*3cm/(\numports+1)}%
+    }
+
+    % The 'minimum width' and 'minimum height' keys, not the content, determine
+    % the size
+    \savedanchor\northeast{%
+        \pgfmathsetlength\pgf@x{3.5cm}%
+        \pgfmathsetlength\pgf@y{5cm}%
+        \pgf@x=0.11\pgf@x
+        \pgf@y=0.15\pgf@y
+    }
+    % This is redundant, but makes some things easier:
+    \savedanchor\southwest{%
+        \pgfmathsetlength\pgf@x{3.5cm}%
+        \pgfmathsetlength\pgf@y{5cm}%
+        \pgf@x=-0.11\pgf@x
+        \pgf@y=-0.15\pgf@y
+    }
+    % Inherit from rectangle
+    \inheritanchorborder[from=rectangle]
+
+    % Define same anchor a normal rectangle has
+    \anchor{center}{\pgfpointorigin}
+    \anchor{north}{\northeast \pgf@x=0pt}
+    \anchor{east}{\northeast \pgf@y=0pt}
+    \anchor{south}{\southwest \pgf@x=0pt}
+    \anchor{west}{\southwest \pgf@y=0pt}
+    \anchor{north east}{\northeast}
+    \anchor{north west}{\northeast \pgf@x=-\pgf@x}
+    \anchor{south west}{\southwest}
+    \anchor{south east}{\southwest \pgf@x=-\pgf@x}
+    \anchor{text}{
+        \pgfpointorigin
+        \advance\pgf@x by -.5\wd\pgfnodeparttextbox%
+        \advance\pgf@y by -.5\ht\pgfnodeparttextbox%
+        \advance\pgf@y by +.5\dp\pgfnodeparttextbox%
+    }
+
+    % Define anchors for signal ports
+
+    \anchor{CLK}{
+        \pgf@process{\northeast}%
+        \pgf@x=0\pgf@x%
+        \pgf@y=-1.1\pgf@y%
+    }
+	\anchor{C}{
+		\pgf@process{\northeast}%
+		\pgf@x=0\pgf@x%
+		\pgf@y=-\pgf@y%
+		\pgfmathsetlength\pgf@xx{1.3ex}
+		\advance\pgf@y by -\pgf@xx
+	}
+    \anchor{D}{
+        \pgf@process{\northeast}%
+        \pgf@x=-1.5\pgf@x%
+        \pgf@y=0\pgf@y%
+    }
+
+    \anchor{Q}{
+        \pgf@process{\northeast}%
+        \pgf@x=1.5\pgf@x%
+        \pgf@y=0\pgf@y%
+        \pgfmathsetlength\pgf@xx{1.3ex}
+		    \advance\pgf@y by \pgf@xx
+    }
+
+    \anchor{QN}{
+        \pgf@process{\northeast}%
+        \pgf@x=1.5\pgf@x%
+        \pgf@y=0\pgf@y%
+        \pgfmathsetlength\pgf@xx{1.3ex}
+		    \advance\pgf@y by -\pgf@xx
+    }
+
+    % Draw the rectangle box and the port labels
+    \backgroundpath{
+        % Rectangle box
+        \pgfpathrectanglecorners{\southwest}{\northeast}
+        \pgfpathcircle{\pgfpoint{0cm}{-0.79cm}}{0.2ex}
+
+        % Drawing Triangle for clock input
+        % upper left x
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y \pgf@yb=\pgf@y
+        \northeast \pgf@xb=\pgf@x
+        \pgf@anchor@reg@CLK
+        \pgf@xc=\pgf@x \pgf@yc=\pgf@y
+        \pgfmathsetlength\pgf@x{1.3ex}
+        \advance\pgf@xa by 1.5mm
+        \advance\pgf@xb by -1.5mm
+        \advance\pgf@yc by \pgf@x
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+        \pgfclosepath
+
+
+        \tikzset{flip flop/port labels} % Use font from this style
+        \tikz@textfont
+
+
+
+        %Drawing CLK circuit
+        \pgf@anchor@reg@south
+        \pgf@ya=\pgf@y
+        \pgf@anchor@reg@CLK
+        \pgf@xa=\pgf@x 
+        \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgf@x{1.8ex}
+        \advance\pgf@yb by -\pgf@x
+        \pgfmathsetlength\pgf@x{0.8ex}
+        \advance\pgf@ya by -\pgf@x
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+        %Draw clock label
+        %\pgf@anchor@reg@CLK\pgftext[base,at={\pgfpoint{\pgf@x}{\pgf@y}}]{\raisebox{-2.5ex}{CLK}}
+
+        %Drawing PC circuit
+        \pgf@anchor@reg@D
+        \pgf@ya=\pgf@y \pgf@yb=\pgf@y \pgf@xa=\pgf@x
+        \pgf@anchor@reg@west
+        \pgf@xb=\pgf@x
+        %\pgfmathsetlength\pgf@x{2.7ex}
+        %\advance\pgf@xb by \pgf@x
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+        \pgf@anchor@reg@D\pgftext[base,at={\pgfpoint{\pgf@x+3.5ex}{\pgf@y}}]{\raisebox{-0.7ex}{D}}
+
+        %Drawing PC' circuit
+        \pgf@anchor@reg@east
+        \pgf@xb=\pgf@x
+        \pgf@anchor@reg@northeast
+        \pgf@xa=1.5\pgf@x%
+        \pgf@ya=0\pgf@y%
+        \pgfmathsetlength\pgf@xx{2.6ex}
+		    \advance\pgf@ya by \pgf@xx
+        \pgf@yb = \pgf@ya
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+        \pgf@anchor@reg@Q\pgftext[base,at={\pgfpoint{\pgf@x-3.5ex}{\pgf@y+2.6ex}}]{\raisebox{-0.7ex}{Q}}
+
+        % QN
+        \pgf@anchor@reg@northeast
+        \pgf@ya=0\pgf@y%
+        \pgfmathsetlength\pgf@xx{2.6ex}
+		    \advance\pgf@ya by -\pgf@xx
+        \pgf@yb = \pgf@ya
+
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+        \pgf@anchor@reg@Q\pgftext[base,at={\pgfpoint{\pgf@x-4.3ex}{\pgf@y-2.6ex}}]{\raisebox{-0.7ex}{QN}}
+    }
+
+    % create input anchors
+    % this touch internal things, so beware...
+    % anchors are named pgf@anchor@<name-of-the-shape>@<name of the anchors>
+    \pgfutil@g@addto@macro\pgf@sh@s@reg{%
+        \tmp@a=\numports\relax
+        \pgfmathloop%
+        \ifnum\pgfmathcounter>\tmp@a%
+        \else%
+        % assign the anchor "in \pgfmathcounter" to the macro \reg@port with the number as argument
+        \expandafter\xdef\csname pgf@anchor@reg@in \pgfmathcounter\endcsname{%
+            \noexpand\reg@port{\pgfmathcounter}% defined below
+        }%
+        % \typeout{YAY\space\pgfmathcounter}
+        \repeatpgfmathloop%
+    }
+
+}
+%
+\def\reg@port#1{%
+    % this macro has the function to return the position of the anchor
+    % it must use only \savedanchors and \savedmacros
+    % the parameter is the number of the anchor (see above)
+    \northeast
+    \pgf@x=-\pgf@x
+    \pgf@ya=\pgf@y
+    \pgfmathsetlength{\pgf@y}{\pgf@ya-(#1+0.5)*\pinsdelta}%
+}
+\makeatother

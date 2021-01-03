@@ -5,7 +5,7 @@
 
 \textbf{Logic synthesis:} Conversion from HDL description to a gate-level netlist
 \begin{itemize}
-  \item HDL: Descripton of the design
+  \item HDL: Description of the design
   \item Constraints on the design (.sdc)
     \subitem PPA design intent constraints (e.g. timing)
     \subitem Boundary and operating conditions
@@ -134,7 +134,37 @@ If we want a selection between exclusive clock we need a glitch-free clock MUX.
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.45\textwidth]{Images/glitch_free_mux.png}
+  \begin{circuitikz}[american] 
+    \node [draw, and port] (and0in) at (-1,0) {};
+    \node [draw, dff] (reg0) at (0,0) {};
+    \node [draw,and port] (and0) at (3,-1) {};
+   \draw (reg0.Q) -| (and0.in 1);
+   \draw (and0.in 2) -| (reg0.C);
+   \draw (and0.in 2) -- ++ (-3.5,0) node[above]{CLK0};
+   \draw (and0in.out) -- (reg0.D);
+
+   \node [draw, and port] (and1in) at (-1,3){};
+   \node [draw,dff] (reg1) at (0,3) {};
+   \node [draw,and port] (and1) at (3,2){};
+   \draw (reg1.Q) -| (and1.in 1);
+   \draw (and1.in 2) -| (reg1.C);
+   \draw (and1.in 2) -- ++ (-3.5,0) node[above]{CLK1};
+   \draw (and1in.out) -- (reg1.D);
+   
+   \node [draw,not port,rotate=-90] (inv) at (-4,1) {};
+   \draw (inv.out) |- (and0in.in 2);
+   \draw (inv.in) |- (and1in.in 1);
+   \draw (and1in.in 1) -- ++ (-2,0) node[above]{SELECT};
+   \draw (and1in.in 2) -- ++ (-0.5,0) coordinate(tmp1);
+   \draw (and0in.in 1) -- ++ (-0.5,0) coordinate(tmp0);
+   \draw (reg0.QN) -| ++ (0.3,1.6) -| (tmp1);
+   \draw (reg1.QN) -| ++ (0.7,-1.6) -| (tmp0);
+  
+   \node [draw, xor port] (xor) at (5,0.5) {};
+   \draw (and0.out) -| (xor.in 2);
+   \draw (and1.out) -| (xor.in 1);
+   \draw (xor.out) -- ++ (1,0) node[above]{OUT CLOCK};
+  \end{circuitikz}
   \caption{Glitch-free clock MUX}
   \label{glitch-free MUX}
 \end{figure}

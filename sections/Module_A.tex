@@ -1,10 +1,11 @@
 \subsection{PPA}
 The PPA is a good factor to evaluate a digital chip
 \begin{itemize}
-  \item Speed \textbf{P}erformance in GHz:
+  \item \textbf{P}erformance:
+    \subitem Speed in GHz
     \subitem \(f_{clk} \rightarrow\) CPI (not enough)
     \subitem MIPS (cpu) or GOPS/GFLOPS
-  \item \textbf{P}ower consupmiton in mW:
+  \item \textbf{P}ower consumption in mW:
     \subitem \(P \propto f_{_{clk}} \rightarrow\) Needs to be normalized
       \subitem mW/MHz, GOPS/W, pJ/inst, \(\mu\)J/task
     \item Fabrication costs \(\propto\) 1/ Silicon \textbf{A}rea
@@ -14,7 +15,7 @@ The PPA is a good factor to evaluate a digital chip
 
 \textbf{GOPS:} Giga operation per second.
 
-\textbf{GFLOPS:} Giga floating operation per second.
+\textbf{GFLOPS:} Giga floating point operation per second.
 
 
 
@@ -42,7 +43,7 @@ The PPA is a good factor to evaluate a digital chip
 % TODO add relations ?
 
 \subsection{MCU}
-Microcontroller are often used in embedded applications. The embeds various functions (IO,I2C, memory, ADC,DAC, Timer, Power management Unit, CPU). Low cost (high production volume).
+Microcontroller are often used in embedded applications. The embeds various functions (IO,I2C, memory, ADC,DAC, Timer, Power management Unit, CPU). It's also low cost (high production volume).
 \bigbreak
 Two main CPU: \textit{ARM Cortex-M} and \textit{RISC-V}. Cortex-M0 are predictable (in-order execution, built-in interrupt controller), portable (predetermined memory space)
 \bigbreak
@@ -69,6 +70,11 @@ Only 16 registers to stay low poer and have compact instructions.
 
 
 \subsubsection{Interrupt}
+With NVIC, the interrupt handler is executed automatically when an interrupt request is taken withouth the need to determine the exception vector in software. There is 4 different programmable priority levels. It handles automatically nested interrupts.
+
+WIC allows the processor to be powerd down during sleep, while still allowing interrupt sources to wake up the system.
+
+
 \textbf{NVIC:} Nested vector interrupt control
 
 \textbf{WIC:} Wake-up interrupt controller
@@ -103,9 +109,7 @@ The RAM contains:
 
 \textbf{Heap:} dynamically allocated variables
 
-The stack and heap grow in opposite directions.
-
-The cortex-M0 can generate byte, half-ward, and word transfers
+The stack and heap grow in opposite directions. The cortex-M0 can generate byte, half-ward, and word transfers
 
 \subsection{Architectural design}
 
@@ -114,7 +118,7 @@ The cortex-M0 can generate byte, half-ward, and word transfers
 \textbf{High-level synthesis:} Synthesize RTL code from C/SystemC/Matlab. Improved productivity but PPA still lagging far behind manuel coding.
 \bigbreak
 
-Need SoC verification: First-time success is paramount and verefication is key (sooner the error is detected, the quicker a fix is implemented).
+Need SoC verification: First-time success is paramount and verification is key (sooner the error is detected, the quicker a fix is implemented).
 
 \textbf{Verification:} act of reviewing, inspecting and testing a design ir order to establish that it meet the specifications (functional and performance).
 
@@ -125,20 +129,17 @@ The number of states grow too fast (\(\log^2\)) and worst with CPU (test all SW)
 \begin{itemize}
   \item Require time and expertise
   \item is also subject to human errors
-  \item Dose not capture layout effects
+  \item Does not capture layout effects
 \end{itemize}
 
 A test bench is used to provide and collect data. Need also a clock and reset signal. (Testbench should be written by a different person than the designer). Waveform inspection or sequential generation of input stimuli is not scalable. Complex DSP need high-level model to compare the outputs.
 
 
-\textbf{Assertions based verification:} a statement that a certain property must be true, which falgs an error if not. It is possible to check block internal state. Can be specified by designer of verificatino teams. Widely adopted by the industry when there is a lot of IP blocks.
+\textbf{Assertions based verification:} a statement that a certain property must be true, which flags an error if not. It is possible to check block internal state. Can be specified by designer of verification teams. Widely adopted by the industry when there is a lot of IP blocks.
 
 \bigbreak
-ABV can be used for measuring test coverage. The reach a coverage of 100\% we need manual testbench improvement with new mode of operations, function, range of input stimuli. 
-
-
-To cost of verification increase with the miniaturisation.
-
+ABV can be used for measuring test coverage. The reach a coverage of 100\% we need manual testbench improvement with new mode of operations, function, range of input stimuli. To cost of verification increase with the miniaturisation.
+\bigbreak
 \textbf{Metric-driven verification:} use coverage-directed automatic random stimuli generation to exercise all parts of the design. Universal Verification Methodology (UVM) is a standardized metric-driven methodoly for RTL digital design with a focus on IP re-use.
 \subsubsection{Formal verification}
 \textbf{Formal verification:} Use of mathematical methods to prove that a design meets its specification. It is defined by

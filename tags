@@ -8,26 +8,21 @@
 A1	sections/HW.tex	/^\\subsection{A1}$/;"	u
 A2	sections/HW.tex	/^The main is not the first thing executed in a program. We need initialization whchi will perpare the system to run the main. It can be observed after a reset$/;"	u
 A3	sections/HW.tex	/^Avoid int64 (2 registers) and float (no hardware). Instead of dividing or multiplying try to use shift. Also try to simplify mathematical expressions.$/;"	u
-A4	sections/HW.tex	/^The \\texttt{ahb\\_slave\\_mux} selects the slave to be accessed by the master nad multiplexes the \\textit{HRDATA} signals of the different slaves. In the project it also select the current master of the AHB bus (Cortex-M0\/JTAG) based on TMS signal.$/;"	u
+A4	sections/HW.tex	/^The \\texttt{ahb\\_slave\\_mux} selects the slave to be accessed by the master and multiplexes the \\textit{HRDATA} signals of the different slaves. In the project it also select the current master of the AHB bus (Cortex-M0\/JTAG) based on TMS signal.$/;"	u
 A5	sections/HW.tex	/^See \\textsc{Section} \\ref{Robust-HDL-coding}  about Robust HDL coding.$/;"	u
 ADD	code/DSP-pseudocode.s	/^ADD  R3, R1, R3$/;"	l
-AHB	sections/Module_A.tex	/^\\textbf{NMI:} Non-maskable interrupt$/;"	u
 Anthropocene	sections/Module_D.tex	/^\\end{itemize}$/;"	u
-Architectural design	sections/Module_A.tex	/^The cortex-M0 can generate byte, half-ward, and word transfers$/;"	u
 BNE	code/DSP-pseudocode.s	/^BNE  R0, #0$/;"	l
-Business model map	sections/Module_A.tex	/^\\textbf{GFLOPS:} Giga floating operation per second.$/;"	u
+Business model map	sections/Module_A.tex	/^\\textbf{GFLOPS:} Giga floating point operation per second.$/;"	u
 Clock design	sections/Module_B.tex	/^\\end{itemize}$/;"	u
 DSP cores	sections/Module_D.tex	/^\\end{itemize}$/;"	b
 Design Flow	main.tex	/^\\tableofcontents$/;"	s
 Design constraints	sections/Module_B.tex	/^\\end{enumerate}$/;"	u
-Dynamic verification	sections/Module_A.tex	/^\\textbf{Verification:} act of reviewing, inspecting and testing a design ir order to establish that it meet the specifications (functional and performance).$/;"	b
 Ecological transition in ICT	sections/Module_D.tex	/^\\end{itemize}$/;"	u
-Formal verification	sections/Module_A.tex	/^\\textbf{Metric-driven verification:} use coverage-directed automatic random stimuli generation to exercise all parts of the design. Universal Verification Methodology (UVM) is a standardized metric-driven methodoly for RTL digital design with a focus on IP re-use.$/;"	b
 General-purpose processor	sections/Module_D.tex	/^\\subsection{Hardware accelerator}$/;"	b
 Hardware accelerator	sections/Module_D.tex	/^\\subsection{Hardware accelerator}$/;"	u
 Hardware accelerators	sections/Module_D.tex	/^\\textbf{MPSoCs:} Multi-processors Socs - When higher fully parallel performance are required$/;"	b
 Homework	main.tex	/^\\input{sections\/Module_D}$/;"	s
-Interrupt	sections/Module_A.tex	/^\\textbf{Floating point hardware}: (optional)$/;"	b
 LOAD	code/DSP-pseudocode.s	/^LOAD R1, R4, R0                                                                 $/;"	l
 LOAD	code/DSP-pseudocode.s	/^LOAD R2, R5, R0$/;"	l
 Logic paths	sections/Module_B.tex	/^\\end{itemize}$/;"	u
@@ -44,14 +39,12 @@ Packaging	sections/Module_C.tex	/^\\end{itemize}$/;"	u
 Physical implementation	sections/Module_C.tex	/^$/;"	u
 Power	sections/Module_B.tex	/^Boundary conditions on input\/output ports impact the timing and power of the design (slew rate and capacitance). To resolve IO setup constrains we can forward the clock (have the same delay between capture and lauch path).$/;"	u
 Principle	sections/Module_B.tex	/^$/;"	u
-Processor core	sections/Module_A.tex	/^\\bigbreak$/;"	b
-RAM and memory	sections/Module_A.tex	/^\\end{itemize}$/;"	u
 Reset design	sections/Module_B.tex	/^\\end{itemize}$/;"	u
 Robust HDL coding	sections/Module_B.tex	/^Strategies: Typical conditions (design evaluation) or worst-cas conditions (design sign-off).$/;"	u
 SRAM	sections/Module_B.tex	/^\\end{itemize}$/;"	b
+STORE	code/DSP-pseudocode.s	/^STORE R3 -> y(n)$/;"	l
 SUB	code/DSP-pseudocode.s	/^SUB  R0, R0, #1$/;"	l
 Standard-cell	sections/Module_B.tex	/^  \\end{itemize}$/;"	u
-Static verification	sections/Module_A.tex	/^\\end{itemize}$/;"	b
 Technology scaling	sections/Module_C.tex	/^\\end{itemize}$/;"	u
 Timing closure	sections/Module_B.tex	/^  \\textbf{Timing exceptions:} Everything whose timing constraint is not defined by \\(T_{cycle} > T_{C2Q} + T_{delay} + T_{setup}\\) (e.g. asynchronous I\/O, extremely relaxed timing constraint).$/;"	b
 Timing closure	sections/Module_B.tex	/^Performance trade-offs: we have a Pareto curve of optimum solutions between energy and Delay.$/;"	u

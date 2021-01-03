@@ -4,3 +4,6 @@ MULT R1, R1, R2
 ADD  R3, R1, R3
 SUB  R0, R0, #1
 BNE  R0, #0
+
+
+STORE R3 -> y(n)

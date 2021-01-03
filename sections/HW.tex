@@ -41,7 +41,7 @@ There is 4 phase of simulations
 
 The \texttt{pcb\_module}  module here is to model in the simulation the pcb (physical connection - we have some capacitance ~\(pF\) to charge ~\(ns\)).
 
-The \texttt{ahb\_slave\_mux} selects the slave to be accessed by the master nad multiplexes the \textit{HRDATA} signals of the different slaves. In the project it also select the current master of the AHB bus (Cortex-M0/JTAG) based on TMS signal.
+The \texttt{ahb\_slave\_mux} selects the slave to be accessed by the master and multiplexes the \textit{HRDATA} signals of the different slaves. In the project it also select the current master of the AHB bus (Cortex-M0/JTAG) based on TMS signal.
 
 
 \subsection{A4}
@@ -51,7 +51,7 @@ See \textsc{Section} \ref{Robust-HDL-coding}  about Robust HDL coding.
 \subsection{A5}
 A path is between a startpoint and a endPoint. Both for the launch path and the capture path. Relevant ? \(\Rightarrow\) Synchronous or not.
 
-We need to clean signal from I/O (e.g. reset) so ween the latch the signal. The clock must have a proper SDC declaration (to allow metastability) but it's also true for the I/O signals (e.g. reset). For GPOUT, we should forward the clock (Hardware or software (ex: using Gpout[9] ))
+We need to clean signal from I/O (e.g. reset) so we need to latch the signal. The clock must have a proper SDC declaration (to allow metastability) but it's also true for the I/O signals (e.g. reset). For GPOUT, we should forward the clock (Hardware or software (ex: using Gpout[9] ))
 
 
 \subsection{A6}

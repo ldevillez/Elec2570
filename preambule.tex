@@ -15,6 +15,7 @@
 \usepackage{xcolor}
 %\usetikzlibrary{babel}
 \usepackage{hyperref}
+\usepackage{circuitikz}
 
 \usepackage[top = 2cm, bottom = 2cm, left = 2cm, right = 2cm]{geometry}
 
@@ -22,8 +23,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \tikzset{flip flop/port labels/.initial={\tiny}}
-\input{tikz/reg.tex}
 
+\input{tikz/reg.tex}
+\input{tikz/dff.tex}
 
 \lstset{
   morekeywords={LOAD,MULT,ADD,SUB,BNE},
