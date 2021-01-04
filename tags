@@ -11,7 +11,7 @@ A3	sections/HW.tex	/^Avoid int64 (2 registers) and float (no hardware). Instead 
 A4	sections/HW.tex	/^The \\texttt{ahb\\_slave\\_mux} selects the slave to be accessed by the master and multiplexes the \\textit{HRDATA} signals of the different slaves. In the project it also select the current master of the AHB bus (Cortex-M0\/JTAG) based on TMS signal.$/;"	u
 A5	sections/HW.tex	/^See \\textsc{Section} \\ref{Robust-HDL-coding}  about Robust HDL coding.$/;"	u
 ADD	code/DSP-pseudocode.s	/^ADD  R3, R1, R3$/;"	l
-Anthropocene	sections/Module_D.tex	/^\\end{itemize}$/;"	u
+Anthroposcene	sections/Module_D.tex	/^\\end{itemize}$/;"	u
 BNE	code/DSP-pseudocode.s	/^BNE  R0, #0$/;"	l
 Business model map	sections/Module_A.tex	/^\\textbf{GFLOPS:} Giga floating point operation per second.$/;"	u
 Clock design	sections/Module_B.tex	/^\\end{itemize}$/;"	u
