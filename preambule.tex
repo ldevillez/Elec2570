@@ -22,13 +22,12 @@
 \newcommand{\HRule}{\rule{\linewidth}{0.4mm}} % Defines a new command for the horizontal lines, change thickness here
 
 %%%%%%%%%%%%%%%%%%%%%%%%
-\tikzset{flip flop/port labels/.initial={\tiny}}
 
 \input{tikz/reg.tex}
 \input{tikz/dff.tex}
 
 \lstset{
-  morekeywords={LOAD,MULT,ADD,SUB,BNE},
+  morekeywords={LOAD,MULT,ADD,SUB,BNE,STORE},
   keywordstyle=\color{blue},
   frame=single,
   basicstyle=\footnotesize,       % the size of the fonts that are used for the code

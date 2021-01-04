@@ -101,7 +101,7 @@ Strategies: Typical conditions (design evaluation) or worst-cas conditions (desi
 \label{Robust-HDL-coding}
 Non-synthesizable statements:
 \begin{itemize}
-  \item Initial statements (not physical) \(\Rightarrow\) restable register
+  \item Initial statements (not physical) \(\Rightarrow\) resetable register
   \item Delay statements \(\Rightarrow\) constraints in the .sdc OR delay the signal by clock cycles
 \end{itemize}
 
@@ -170,7 +170,7 @@ If we want a selection between exclusive clock we need a glitch-free clock MUX.
 \end{figure}
 
 
-\textbf{Metastability:} Time window \(T_W\) where setup/hold is violated. Two flip-flops in series form a double-latech barrier and improve the MTBF (Need to specify to the tool te be tolerant on \_meta nodes
+\textbf{Metastability:} Time window \(T_W\) where setup/hold is violated. Two flip-flops in series form a double-latch barrier and improve the MTBF (Need to specify to the tool te be tolerant on \_meta nodes
 
 \textbf{MBTF:} Mean-time between Failure \( \cfrac{e^{S/\tau}}{T_WF_CF_D}\)
 \begin{itemize}

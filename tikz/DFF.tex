@@ -1,26 +1,9 @@
 \makeatletter
 %
-% better to create a family, but as an example...
-\tikzset{flip flop/port labels/.initial={\tiny}}
 %
-% number of ports
-\tikzset{ports/.initial=4}
 %
-% we need a counter
-\newcount\tmp@a
 
 \pgfdeclareshape{dff}{
-
-    % you have to save the relevant parameters as \savedmacro
-    \savedmacro\numports{
-        \edef\numports{\pgfkeysvalueof{/tikz/ports}}%
-    }
-    % and \saveddimen
-    \saveddimen\pinsdelta{
-        % you can't use savedmacros nor savedanchors here (bummer!)
-        \edef\numports{\pgfkeysvalueof{/tikz/ports}}%
-        \pgfmathsetlength\pgf@x{0.22*3cm/(\numports+1)}%
-    }
 
     % The 'minimum width' and 'minimum height' keys, not the content, determine
     % the size
@@ -189,13 +172,4 @@
 
 }
 %
-\def\reg@port#1{%
-    % this macro has the function to return the position of the anchor
-    % it must use only \savedanchors and \savedmacros
-    % the parameter is the number of the anchor (see above)
-    \northeast
-    \pgf@x=-\pgf@x
-    \pgf@ya=\pgf@y
-    \pgfmathsetlength{\pgf@y}{\pgf@ya-(#1+0.5)*\pinsdelta}%
-}
 \makeatother
